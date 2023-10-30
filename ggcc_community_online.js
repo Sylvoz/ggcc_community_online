@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 
-export async function ggcc_community_online(community, department, tower, user, password) {
+export async function ggcc_community_online(community_name, department, tower, user, password) {
   // measurement_date info
   const fechaActual = new Date();
 
@@ -21,29 +21,29 @@ export async function ggcc_community_online(community, department, tower, user, 
   let depto = department;
 
   // Every case in community online
-  if (community.toLowerCase() == "comunidad edificio briones luco") {
+  if (community_name.toLowerCase() == "comunidad edificio briones luco") {
     depto = "Depto.-" + department;
-  } else if (community.toLowerCase() == "condominio doña josefina") { // Deprecated for doña josefina
+  } else if (community_name.toLowerCase() == "condominio doña josefina") { // Deprecated for doña josefina
     depto = "ED. " + tower + " - DEPARTAMENTO Nº " + department;
-  } else if (community.toLowerCase() == "condominio buena vista san miguel") {
+  } else if (community_name.toLowerCase() == "condominio buena vista san miguel") {
     depto = "D 0" + department;
-  } else if (community.toLowerCase() == "edificio zenteno efficient" || community.toLowerCase() == "edificio concepto move") {
+  } else if (community_name.toLowerCase() == "edificio zenteno efficient" || community_name.toLowerCase() == "edificio concepto move") {
     depto= depto+"-"+tower.toUpperCase()
-  } else if (community.toLowerCase() == "edificio espacio central i" || community.toLowerCase() == "edificio vista parque"){
+  } else if (community_name.toLowerCase() == "edificio espacio central i" || community_name.toLowerCase() == "edificio vista parque"){
     depto="Depto. "+department // 'Depto. 217
-  } else if (community.toLowerCase() == "unidad vecinal providencia sector 2"){
+  } else if (community_name.toLowerCase() == "unidad vecinal providencia sector 2"){
     depto="TORRE "+tower+"-"+department // TORRE 8-503
-  } else if (community.toLowerCase() == "comunidad edificio los abetos"){
+  } else if (community_name.toLowerCase() == "comunidad edificio los abetos"){
     depto="Dpto "+tower.toUpperCase()+"-"+department // Dpto A9-33
-  } else if (community.toLowerCase() == "condominio buena vista san miguel -1"){
+  } else if (community_name.toLowerCase() == "condominio buena vista san miguel -1"){
     depto="D "+depto
-  } else if (community.toLowerCase() == "comunidad santiago central"){ // 'A-0214'
+  } else if (community_name.toLowerCase() == "comunidad santiago central"){ // 'A-0214'
     depto=tower+"-"+department
-  } else if (community.toLowerCase() == "comunidad cumbres de portugal"){ // depto1415
+  } else if (community_name.toLowerCase() == "comunidad cumbres de portugal"){ // depto1415
     depto="depto"+department
-  } else if (community.toLowerCase() == "edificio san eugenio 890"){ // Dpto-908
+  } else if (community_name.toLowerCase() == "edificio san eugenio 890"){ // Dpto-908
     depto="Dpto-"+department
-  } else if (community.toLowerCase() == "urban"){ // DEPTO 714
+  } else if (community_name.toLowerCase() == "urban"){ // DEPTO 714
     depto="DEPTO "+department
   } 
   
@@ -116,17 +116,17 @@ export async function ggcc_community_online(community, department, tower, user, 
     // Start For
     for (let i = 0; i < result.length; i++) {
       // Doña josefina case
-      if (community.toLowerCase() == "condominio doña josefina") {
+      if (community_name.toLowerCase() == "condominio doña josefina") {
         if (
           result[i][4] == tower &&
           result[i].substring(24, 26) == department &&
-          result_com[i].toLowerCase() == community.toLowerCase()
+          result_com[i].toLowerCase() == community_name.toLowerCase()
         ) {
           founded = true;
           pos = i + 1;
         }
       } else {
-        if (result[i] == depto && result_com[i].toLowerCase() == community.toLowerCase()) {
+        if (result[i] == depto && result_com[i].toLowerCase() == community_name.toLowerCase()) {
           founded = true;
           pos = i + 1;
         }
